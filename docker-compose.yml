@@ -1,0 +1,16 @@
+services:
+  forecast-db:
+    image: postgres:16
+    container_name: forecast-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: forecast
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - forecast-db-data:/var/lib/postgresql/data
+
+volumes:
+  forecast-db-data:
