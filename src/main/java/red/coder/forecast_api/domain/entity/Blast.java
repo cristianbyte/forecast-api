@@ -30,7 +30,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "blasts")
 @AllArgsConstructor
-public class Blasts {
+public class Blast {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -131,11 +131,11 @@ public class Blasts {
 
     // CALCULADO = designHoles * designAverageLength
     @Column(name = "design_drilled_meters", precision = 12, scale = 3)
-    private BigDecimal designDrilledMeters;
+    private BigDecimal totalDesignDrilledMeters;
 
     // EXTERNO
     @Column(name = "real_drilled_meters", precision = 12, scale = 3)
-    private BigDecimal realDrilledMeters;
+    private BigDecimal totalRealDrilledMeters;
 
     // CALCULADO = designDrilledMeters - realDrilledMeters
     @Column(name = "drilled_meters_difference", precision = 12, scale = 3)
@@ -226,15 +226,15 @@ public class Blasts {
     @Column(name = "closed_at")
     private OffsetDateTime closedAt;
 
-    public Blasts(BlastLocation location, String blastCode, LocalDate blastDate, Integer designHoles, Integer realHoles, BigDecimal totalDrilledMeters, BigDecimal totalDesingDrilledMeters, BigDecimal designEmulsion, BigDecimal realEmulsion, Integer p337, Integer ikon15m
+    public Blast(BlastLocation location, String blastCode, LocalDate blastDate, Integer designHoles, Integer realHoles, BigDecimal totalRealDrilledMeters, BigDecimal totalDesignDrilledMeters, BigDecimal designEmulsion, BigDecimal realEmulsion, Integer p337, Integer ikon15m
     ) {
         this.location = location;
         this.blastCode = blastCode;
         this.status = BlastStatus.DRAFT;
         this.designHoles = designHoles;
         this.realHoles = realHoles;
-        this.designDrilledMeters = totalDesingDrilledMeters;
-        this.realDrilledMeters = totalDrilledMeters;
+        this.totalDesignDrilledMeters = totalDesignDrilledMeters;
+        this.totalRealDrilledMeters = totalRealDrilledMeters;
         this.designEmulsion = designEmulsion;
         this.realEmulsion = realEmulsion;
         this.p337 = p337;
