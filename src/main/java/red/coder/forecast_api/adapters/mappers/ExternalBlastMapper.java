@@ -2,17 +2,16 @@ package red.coder.forecast_api.adapters.mappers;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.ObjectFactory;
-
 import red.coder.forecast_api.api.dto.external.ExternalBlastDTO;
+import red.coder.forecast_api.api.dto.response.BlastResponse;
 import red.coder.forecast_api.domain.entity.Blast;
 
 @Mapper(componentModel = "spring")
 public interface ExternalBlastMapper {
 
-    @ObjectFactory
-    Blast createBlast(ExternalBlastDTO dto);
+    Blast requestToBlast(ExternalBlastDTO dto);
 
-    @ObjectFactory
+    BlastResponse blastToResponse(Blast blast);
+
     void updateBlast(ExternalBlastDTO dto, @MappingTarget Blast blast);
 }

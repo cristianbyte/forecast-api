@@ -1,4 +1,4 @@
-package red.coder.forecast_api.api.dto;
+package red.coder.forecast_api.api.dto.response;
 
 public record ApiErrorResponse(
     String message,

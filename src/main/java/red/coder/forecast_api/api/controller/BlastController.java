@@ -1,4 +1,4 @@
-package red.coder.forecast_api.api.controller.external;
+package red.coder.forecast_api.api.controller;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,9 +9,9 @@ import red.coder.forecast_api.adapters.services.BlastService;
 import red.coder.forecast_api.api.dto.external.ExternalBlastSyncResultDTO;
 
 @RestController
-@RequestMapping("/api/external/blasts")
+@RequestMapping("/blasts")
 @AllArgsConstructor
-public class ExternalBlastController {
+public class BlastController {
 
     private final BlastService blastService;
 

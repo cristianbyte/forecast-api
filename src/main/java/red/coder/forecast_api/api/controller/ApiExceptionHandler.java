@@ -1,4 +1,4 @@
-package red.coder.forecast_api.api.controller.advice;
+package red.coder.forecast_api.api.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import red.coder.forecast_api.adapters.exceptions.SupabaseRequestException;
-import red.coder.forecast_api.api.dto.ApiErrorResponse;
+import red.coder.forecast_api.api.dto.response.ApiErrorResponse;
 
 @RestControllerAdvice
 public class ApiExceptionHandler {

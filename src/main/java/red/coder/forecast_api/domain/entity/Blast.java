@@ -23,10 +23,10 @@ import jakarta.persistence.Table;
 
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "blasts")
 @AllArgsConstructor
+@NoArgsConstructor
 public class Blast {
 
     @Id
