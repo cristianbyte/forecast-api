@@ -2,7 +2,6 @@ package red.coder.forecast_api.domain.entity;
 
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import red.coder.forecast_api.domain.enums.BlastLocation;
 import red.coder.forecast_api.domain.enums.BlastStatus;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -15,8 +14,6 @@ import java.time.format.DateTimeFormatter;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -37,7 +34,7 @@ public class Blast {
     private String id;
 
     @Column(nullable = false, length = 20)
-    private BlastLocation location;
+    private String location;
 
     @Column(name = "sub_location", length = 50)
     private String subLocation;
@@ -45,7 +42,7 @@ public class Blast {
     private LocalDate date;
 
     // Período de cobro. Formato: YYYY-MM.
-    @Column(nullable = false, length = 7)
+    @Column(length = 7)
     private String period;
 
     /**
@@ -53,7 +50,6 @@ public class Blast {
      * CONFIRMED → validado por el responsable
      * BILLED    → incluido en un cobro mensual
      */
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private BlastStatus status = BlastStatus.DRAFT;
 
@@ -226,7 +222,7 @@ public class Blast {
     @Column(name = "closed_at")
     private OffsetDateTime closedAt;
 
-    public Blast(BlastLocation location, String blastCode, LocalDate blastDate, Integer designHoles, Integer realHoles, BigDecimal totalRealDrilledMeters, BigDecimal totalDesignDrilledMeters, BigDecimal designEmulsion, BigDecimal realEmulsion, Integer p337, Integer ikon15m
+    public Blast(String location, String blastCode, Integer designHoles, Integer realHoles, BigDecimal totalRealDrilledMeters, BigDecimal totalDesignDrilledMeters, BigDecimal designEmulsion, BigDecimal realEmulsion, Integer p337, Integer ikon15m
     ) {
         this.location = location;
         this.blastCode = blastCode;
