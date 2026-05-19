@@ -9,20 +9,35 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.AllArgsConstructor;
+import red.coder.forecast_api.adapters.abstract_services.IBlastService;
+import red.coder.forecast_api.adapters.mappers.ExternalBlastMapper;
+import red.coder.forecast_api.adapters.repositories.external.ExternalBlastRepository;
 import red.coder.forecast_api.adapters.repositories.internal.BlastRepository;
 import red.coder.forecast_api.api.dto.external.ExternalBlastSyncResultDTO;
+import red.coder.forecast_api.api.dto.response.BlastResponse;
 import red.coder.forecast_api.domain.entity.Blast;
 
 @Service
 @AllArgsConstructor
-public class BlastService {
+public class BlastService implements IBlastService {
 
-    private final ExternalBlastService externalBlastService;
+    private final ExternalBlastRepository externalBlastRepository;
+    private final ExternalBlastMapper externalBlastMapper;
     private final BlastRepository blastRepository;
 
+    @Override
+    public List<BlastResponse> readAll() {
+        return blastRepository.findAll().stream()
+            .map(externalBlastMapper::blastToResponse)
+            .toList();
+    }
+
+    @Override
     @Transactional
     public ExternalBlastSyncResultDTO syncExternalBlasts() {
-        List<Blast> externalBlasts = externalBlastService.readAll();
+        List<Blast> externalBlasts = externalBlastRepository.findAll().stream()
+            .map(externalBlastMapper::requestToBlast)
+            .toList();
         List<Blast> blastsToSave = new ArrayList<>();
         int created = 0;
         int updated = 0;

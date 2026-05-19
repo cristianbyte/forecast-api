@@ -3,7 +3,6 @@ package red.coder.forecast_api.domain.entity;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import red.coder.forecast_api.domain.enums.BlastStatus;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
