@@ -34,10 +34,10 @@ public class BlastController {
             description = "Returns blasts filtered by optional location, status, and billing period query parameters.")
     public ResponseEntity<List<BlastResponse>> read(
             @Parameter(
-                    description = "Blast location code. Example values: HN or HS.",
-                    example = "HN",
-                    schema = @Schema(type = "string", allowableValues = { "HN", "HS" }))
-            @Pattern(regexp = "HN|HS", message = "must be HN or HS")
+                    description = "Blast location. Example values: HATILLO NORTE or HATILLO SUR.",
+                    example = "HATILLO NORTE",
+                    schema = @Schema(type = "string", allowableValues = { "HATILLO NORTE", "HATILLO SUR" }))
+            @Pattern(regexp = "HATILLO NORTE|HATILLO SUR", message = "must be HATILLO NORTE or HATILLO SUR")
             @RequestParam(required = false) String location,
             @Parameter(
                     description = "Blast workflow status.",
