@@ -16,6 +16,7 @@ import red.coder.forecast_api.adapters.repositories.internal.BlastRepository;
 import red.coder.forecast_api.api.dto.external.ExternalBlastSyncResultDTO;
 import red.coder.forecast_api.api.dto.response.BlastResponse;
 import red.coder.forecast_api.domain.entity.Blast;
+import red.coder.forecast_api.domain.enums.BlastStatus;
 
 @Service
 @AllArgsConstructor
@@ -27,9 +28,22 @@ public class BlastService implements IBlastService {
 
     @Override
     public List<BlastResponse> readAll() {
-        return blastRepository.findAll().stream()
+        return findAll(null, null, null);
+    }
+
+    @Override
+    public List<BlastResponse> findAll(String location, BlastStatus status, String period) {
+        return blastRepository.findAllByFilters(normalize(location), status, normalize(period)).stream()
             .map(externalBlastMapper::blastToResponse)
             .toList();
+    }
+
+    private String normalize(String value) {
+        if (value == null || value.isBlank()) {
+            return null;
+        }
+
+        return value.trim();
     }
 
     @Override
