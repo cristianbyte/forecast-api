@@ -1,6 +1,5 @@
 package red.coder.forecast_api.adapters.services;
 
-import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
