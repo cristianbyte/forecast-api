@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,19 +72,12 @@ public class BlastService implements IBlastService {
         return new ExternalBlastSyncResultDTO(externalBlasts.size(), created, updated, unchanged);
     }
 
-    private boolean hasChanges(Blast localBlast, Blast externalBlast) {
-        return !sameText(localBlast.getLocation(), externalBlast.getLocation())
-            || !sameNumber(localBlast.getDesignHoles(), externalBlast.getDesignHoles())
-            || !sameNumber(localBlast.getRealHoles(), externalBlast.getRealHoles())
-            || !sameDecimal(localBlast.getTotalDesignDrilledMeters(), externalBlast.getTotalDesignDrilledMeters())
-            || !sameDecimal(localBlast.getTotalRealDrilledMeters(), externalBlast.getTotalRealDrilledMeters())
-            || !sameDecimal(localBlast.getDesignEmulsion(), externalBlast.getDesignEmulsion())
-            || !sameDecimal(localBlast.getRealEmulsion(), externalBlast.getRealEmulsion())
-            || !sameNumber(localBlast.getP337(), externalBlast.getP337())
-            || !sameNumber(localBlast.getIkon15m(), externalBlast.getIkon15m());
+    private boolean hasChanges(Blast local, Blast external) {
+        return !Objects.equals(local.getDataHash(), external.getDataHash());
     }
 
     private void updateExternalFields(Blast localBlast, Blast externalBlast, OffsetDateTime syncedAt) {
+        localBlast.setDataHash(externalBlast.getDataHash());
         localBlast.setLocation(externalBlast.getLocation());
         localBlast.setDesignHoles(externalBlast.getDesignHoles());
         localBlast.setRealHoles(externalBlast.getRealHoles());
@@ -96,18 +90,4 @@ public class BlastService implements IBlastService {
         localBlast.setLastSyncedAt(syncedAt);
     }
 
-    private boolean sameText(String left, String right) {
-        return left == null ? right == null : left.equals(right);
-    }
-
-    private boolean sameNumber(Integer left, Integer right) {
-        return left == null ? right == null : left.equals(right);
-    }
-
-    private boolean sameDecimal(BigDecimal left, BigDecimal right) {
-        if (left == null || right == null) {
-            return left == null && right == null;
-        }
-        return left.compareTo(right) == 0;
-    }
 }

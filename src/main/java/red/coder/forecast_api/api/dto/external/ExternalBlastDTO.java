@@ -3,6 +3,7 @@ package red.coder.forecast_api.api.dto.external;
 import java.math.BigDecimal;
 
 public record ExternalBlastDTO(
+    String dataHash,
     String location,
     String blastCode,
     Integer designHoles,

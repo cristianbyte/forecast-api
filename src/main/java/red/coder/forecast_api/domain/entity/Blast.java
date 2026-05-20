@@ -32,6 +32,9 @@ public class Blast {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    @Column(name = "data_hash", length = 32)
+    private String dataHash;
+
     @Column(nullable = false, length = 20)
     private String location;
 
